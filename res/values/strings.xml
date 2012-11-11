@@ -1,0 +1,10 @@
+<resources>
+
+    <string name="app_name">App Reciclagem</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_main">Login</string>
+    <string name="title_activity_lista_itens">Lista de Itens</string>
+    <string name="title_activity_lista_descarte">ListaDescarteActivity</string>
+
+</resources>
