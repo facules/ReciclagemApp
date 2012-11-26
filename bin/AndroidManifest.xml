@@ -40,6 +40,24 @@
                 <category android:name="android.intent.category.GADGET" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".TipoDescarteActivity"
+            android:label="@string/title_activity_tipo_descarte" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.GADGET" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".DescarteActivity"
+            android:label="@string/title_activity_descarte" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

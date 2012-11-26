@@ -6,6 +6,7 @@ import java.util.List;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -45,13 +46,13 @@ public class ListaItensActivity extends Activity {
 
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 
-				AlertDialog.Builder builder = new AlertDialog.Builder(context);
+				/*AlertDialog.Builder builder = new AlertDialog.Builder(context);
 				builder.setMessage("Codigo: "+itens.get(arg2).getCodigo()
 						+"\nProduto: "+itens.get(arg2).getProduto()
 						+"\nDescrição: "+itens.get(arg2).getDescricao());
 				AlertDialog dialogo = builder.create();
-				dialogo.show();
-				//startActivity(new Intent(context, DiscarteActivity.class));
+				dialogo.show();*/
+				startActivity(new Intent(context, DescarteActivity.class));
 			}
 		});
         

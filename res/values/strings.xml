@@ -6,5 +6,7 @@
     <string name="title_activity_main">Login</string>
     <string name="title_activity_lista_itens">Lista de Itens</string>
     <string name="title_activity_lista_descarte">ListaDescarteActivity</string>
+    <string name="title_activity_tipo_descarte">Lista de tipos de descarte</string>
+    <string name="title_activity_descarte">Descarte</string>
 
 </resources>
