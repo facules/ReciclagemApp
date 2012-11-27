@@ -37,7 +37,16 @@ public class MainActivity extends Activity {
 					Usuario usuario = remote.usuarioPorLogin(textUsuario.getText().toString());
 
 					if(usuario != null && usuario.getSenha().endsWith(senha)){
-					    startActivity(new Intent(context, ListaItensActivity.class));
+						
+						Intent intent = new Intent(context, MenuActivity.class);
+						
+						Bundle parametro = new Bundle();
+						
+						parametro.putInt("idUsuario", usuario.getId());
+						
+						intent.putExtras(parametro);
+						
+						startActivity(intent);
 					}
 					else{
 						AlertDialog.Builder builder = new AlertDialog.Builder(context);

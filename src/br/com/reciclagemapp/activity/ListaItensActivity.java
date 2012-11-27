@@ -45,14 +45,28 @@ public class ListaItensActivity extends Activity {
         listViewItens.setOnItemClickListener(new OnItemClickListener() {
 
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-
-				/*AlertDialog.Builder builder = new AlertDialog.Builder(context);
-				builder.setMessage("Codigo: "+itens.get(arg2).getCodigo()
-						+"\nProduto: "+itens.get(arg2).getProduto()
-						+"\nDescrição: "+itens.get(arg2).getDescricao());
-				AlertDialog dialogo = builder.create();
-				dialogo.show();*/
-				startActivity(new Intent(context, DescarteActivity.class));
+				
+				int idUsuario = 0;
+		        
+		        Intent intentParametro = getIntent();
+		        
+		        Bundle bundleParametro = intentParametro.getExtras();
+		        
+		        if(bundleParametro != null){
+		        	idUsuario = bundleParametro.getInt("idUsuario");
+		        }
+				
+				Intent intent = new Intent(context, TipoDescarteActivity.class);
+				
+				Bundle parametro = new Bundle();
+				
+				parametro.putInt("idUsuario", idUsuario);
+				
+				parametro.putInt("idProduto", itens.get(arg2).getId());
+				
+				intent.putExtras(parametro);
+				
+				startActivity(intent);
 			}
 		});
         

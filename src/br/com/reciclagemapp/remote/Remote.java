@@ -3,7 +3,9 @@ package br.com.reciclagemapp.remote;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,7 +19,9 @@ import org.apache.http.util.EntityUtils;
 import android.util.Log;
 import br.com.reciclagemapp.model.Produto;
 import br.com.reciclagemapp.model.ProdutoDescarte;
+import br.com.reciclagemapp.model.TipoDescarte;
 import br.com.reciclagemapp.model.Usuario;
+import br.com.reciclagemapp.model.dto.DescarteDTO;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -26,6 +30,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 
 public class Remote {
+	
 	private final String serverUri;
 
 	public Remote() {
@@ -123,7 +128,7 @@ public class Remote {
 		}
 	}
 	
-	public List<ProdutoDescarte> listaDeDescarte(){
+	public List<DescarteDTO> listaDeDescarte(){
 		try {
 		
 		String uri = serverUri+"listaDeDescartes";
@@ -139,17 +144,72 @@ public class Remote {
 		JsonParser parser = new JsonParser();
 		JsonArray Jarray = parser.parse(json).getAsJsonArray();
 
-		List<ProdutoDescarte> descartes = new ArrayList<ProdutoDescarte>();
+		List<DescarteDTO> descartes = new ArrayList<DescarteDTO>();
 
 		for(JsonElement obj : Jarray )
 	    {
-			ProdutoDescarte descarte = gson.fromJson( obj , ProdutoDescarte.class);
+			DescarteDTO descarte = gson.fromJson( obj , DescarteDTO.class);
 			Log.i("testado loop", String.valueOf(descartes.size()));
 	        descartes.add(descarte);
 	    }
 		
 		return descartes;
 		
+		} catch (Exception e) {
+			return null;
+		}
+	}
+	
+	public List<TipoDescarte> listaDeTipoDescarte(){
+		try {
+		
+		String uri = serverUri+"listaTiposDescarte";
+		
+		String json = webGet(uri, null);
+		
+		if(json == null){
+			return null;
+		}
+		
+		Gson gson = new GsonBuilder().create();
+		
+		JsonParser parser = new JsonParser();
+		JsonArray Jarray = parser.parse(json).getAsJsonArray();
+
+		List<TipoDescarte> tiposDescartes = new ArrayList<TipoDescarte>();
+
+		for(JsonElement obj : Jarray )
+	    {
+			TipoDescarte tipoDescarte = gson.fromJson( obj , TipoDescarte.class);
+	        tiposDescartes.add(tipoDescarte);
+	    }
+		
+		return tiposDescartes;
+		
+		} catch (Exception e) {
+			return null;
+		}
+	}
+	
+	public Boolean descartar(Integer idUsuario, Integer idProduto, Integer idTipoDescarte, String quantidade, String motivo) {
+		try {
+			
+			String uri = serverUri+"descarte";
+			
+			Map<String, String> params = new HashMap<String, String>();
+			params.put("descarteDto.idUsuario", idUsuario.toString());
+			params.put("descarteDto.idProduto", idProduto.toString());
+			params.put("descarteDto.idTipoDescarte", idTipoDescarte.toString());
+			params.put("descarteDto.quantidade", quantidade);
+			params.put("descarteDto.motivo", motivo);
+
+			String json = webGet(uri, params);
+			
+			if(json == null){
+				return true;
+			}
+
+			return true;
 		} catch (Exception e) {
 			return null;
 		}

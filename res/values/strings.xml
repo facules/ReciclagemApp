@@ -8,5 +8,6 @@
     <string name="title_activity_lista_descarte">ListaDescarteActivity</string>
     <string name="title_activity_tipo_descarte">Lista de tipos de descarte</string>
     <string name="title_activity_descarte">Descarte</string>
+    <string name="title_activity_menu">Menu</string>
 
 </resources>

@@ -5,6 +5,7 @@ import java.util.List;
 
 import br.com.reciclagemapp.model.Produto;
 import br.com.reciclagemapp.model.ProdutoDescarte;
+import br.com.reciclagemapp.model.dto.DescarteDTO;
 import br.com.reciclagemapp.remote.Remote;
 import android.os.Bundle;
 import android.app.Activity;
@@ -28,14 +29,16 @@ public class ListaDescarteActivity extends Activity {
         final ListView listViewItens = (ListView) findViewById(R.id.lista_de_descarte);
         
         Remote remote = new Remote();
-        final List<ProdutoDescarte> descartes = remote.listaDeDescarte();
+        final List<DescarteDTO> descartes = remote.listaDeDescarte();
 
 		Log.i("Quantidade de Descartes:", String.valueOf(descartes.size()));
         
         List<String> lista = new ArrayList<String>();
-        for(ProdutoDescarte descarte: descartes){
+        for(DescarteDTO descarte: descartes){
         	Log.i("Motivo de Descarte:", descarte.getMotivo());
-        	lista.add(descarte.getProduto().getProduto());
+        	lista.add(descarte.getDescricaoProduto()+" - "
+        	+descarte.getDescricaoTipoDescarte()+" - "
+        			+descarte.getQuantidade());
         }
         
         final Context context = this;
@@ -47,12 +50,12 @@ public class ListaDescarteActivity extends Activity {
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 
 				AlertDialog.Builder builder = new AlertDialog.Builder(context);
-				builder.setMessage("Produto: "+descartes.get(arg2).getProduto().getProduto()
-						+"Quantidade: "+descartes.get(arg2).getQuantidade().toString()
-						+"Tipo: "+descartes.get(arg2).getTipoDescarte().getNome());
+				builder.setMessage("Detalhes de Descarte\n\nProduto: "+descartes.get(arg2).getDescricaoProduto()
+						+"\nQuantidade: "+descartes.get(arg2).getQuantidade().toString()
+						+"\nTipo: "+descartes.get(arg2).getDescricaoTipoDescarte()
+						+"\nMotivo: "+descartes.get(arg2).getMotivo());
 				AlertDialog dialogo = builder.create();
 				dialogo.show();
-				//startActivity(new Intent(context, DiscarteActivity.class));
 			}
 		});
         
